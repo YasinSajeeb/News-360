@@ -40,7 +40,18 @@ const displayNews = category =>{
                 <img src="${categoryElement.thumbnail_url}" class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-title my-3 text-primary">${categoryElement.title}</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <p class="card-text">${categoryElement.details.slice(0, 100)}...</p>
+                  <div class="d-flex justify-content-between">
+                  <div class="d-flex align-items-center w-50">
+                  <img src="${categoryElement.author.img}" alt="..." class="rounded-circle w-25">
+                  <h6>${categoryElement.author.name}</h6>
+                  </div>
+                  <div>
+                  <h6><i class="bi bi-eye d-inline"></i> ${categoryElement.total_view}</h6>
+                  </div>
+                  </div>
+                  <button class="btn btn-primary mx-auto mt-3 d-block">Show More</button>
+
                 </div>
               </div>
             </div>
