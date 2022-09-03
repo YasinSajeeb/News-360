@@ -39,7 +39,7 @@ const displayNews = category =>{
               <div class="card h-100">
                 <img src="${categoryElement.thumbnail_url}" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
+                  <h5 class="card-title my-3 text-primary">${categoryElement.title}</h5>
                   <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                 </div>
               </div>
