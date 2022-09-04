@@ -3,7 +3,8 @@ const categoriesUrl = 'https://openapi.programming-hero.com/api/news/categories'
 const loadCategories = () => {
     fetch(categoriesUrl)
     .then(res => res.json())
-    .then(data => displayCategories(data.data.news_category));
+    .then(data => displayCategories(data.data.news_category))
+    .catch(error => console.log(error));
 }
 
 const displayCategories = categories =>{
@@ -51,7 +52,7 @@ const displayNews = category =>{
                   <h6><i class="bi bi-eye d-inline"></i> ${categoryElement.total_view}</h6>
                   </div>
                   </div>
-                <button onclick="displayNews(${categoryElement.title ? categoryElement.title : 'Sorry Data Not Found'})" href="#" class="btn btn-primary mx-auto mt-3 d-block" data-bs-toggle="modal" data-bs-target="#phoneDetailModal">Show More</button>
+                <button onclick="displayNews(${categoryElement.title ? categoryElement.title : 'Sorry Data Not Found'})" href="#" class="btn btn-primary mx-auto mt-3 d-block" data-bs-toggle="modal" data-bs-target="#newsDetailModal">Show More</button>
 
                 </div>
               </div>
@@ -60,8 +61,20 @@ const displayNews = category =>{
     newsContainer.appendChild(newsDiv);
 
     toggleSpinner(false);
+
+    // Modal Section //
+    const modalTittle = document.getElementById('newsDetailModalLabel');
+    modalTittle.innerText = categoryElement.title;
+    const newsDetails = document.getElementById('news-details');
+    newsDetails.innerHTML = `
+    <img src="${categoryElement.image_url}" class="img-fluid rounded-start " alt="...">
+    <h6 class="mt-2"> Rating: ${categoryElement.rating.number}, ${categoryElement.rating.badge}. </h6>
+    <p> <span class="fw-semibold">Details:</span> ${categoryElement.details}</p>
+    <h6> Publish Date: ${categoryElement.author.published_date}.</h6>
+    `;
     
     });
+    
 
 }
 
@@ -74,5 +87,6 @@ const toggleSpinner = isLoading => {
         loaderSection.classList.add('d-none');
     }
 }
+
 
 loadCategories();
