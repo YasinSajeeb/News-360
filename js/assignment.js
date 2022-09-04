@@ -18,11 +18,12 @@ const displayCategories = categories =>{
         `;
         ul.appendChild(li);
     })
+    
 }
     
 const loadNews = id =>{
     const newsUrl = `https://openapi.programming-hero.com/api/news/category/${id}`;
-    
+    toggleSpinner(true);
     fetch(newsUrl)
     .then(res => res.json())
     .then(data => displayNews(data.data));
@@ -44,22 +45,34 @@ const displayNews = category =>{
                   <div class="d-flex justify-content-between">
                   <div class="d-flex align-items-center w-50">
                   <img src="${categoryElement.author.img}" alt="..." class="rounded-circle w-25">
-                  <h6>${categoryElement.author.name}</h6>
+                  <h6 class="ms-2">${categoryElement.author.name}</h6>
                   </div>
                   <div>
                   <h6><i class="bi bi-eye d-inline"></i> ${categoryElement.total_view}</h6>
                   </div>
                   </div>
-                  <button class="btn btn-primary mx-auto mt-3 d-block">Show More</button>
+                <button onclick="displayNews(${categoryElement.title ? categoryElement.title : 'Sorry Data Not Found'})" href="#" class="btn btn-primary mx-auto mt-3 d-block" data-bs-toggle="modal" data-bs-target="#phoneDetailModal">Show More</button>
 
                 </div>
               </div>
             </div>
     `;
     newsContainer.appendChild(newsDiv);
-    })
-    
 
+    toggleSpinner(false);
+    
+    });
+
+}
+
+const toggleSpinner = isLoading => {
+    const loaderSection = document.getElementById('loader');
+    if(isLoading){
+        loaderSection.classList.remove('d-none')
+    }
+    else{
+        loaderSection.classList.add('d-none');
+    }
 }
 
 loadCategories();
